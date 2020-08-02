@@ -10,10 +10,10 @@ import (
 	"sort"
 	"time"
 
-	"github.com/lucas-clemente/quic-go/internal/qerr"
+	"github.com/shanebarnes/quic-go/internal/qerr"
 
-	"github.com/lucas-clemente/quic-go/internal/protocol"
-	"github.com/lucas-clemente/quic-go/internal/utils"
+	"github.com/shanebarnes/quic-go/internal/protocol"
+	"github.com/shanebarnes/quic-go/internal/utils"
 )
 
 const transportParameterMarshalingVersion = 1
@@ -287,8 +287,8 @@ func (p *TransportParameters) readNumericTransportParameter(
 	case maxIdleTimeoutParameterID:
 		p.MaxIdleTimeout = utils.MaxDuration(protocol.MinRemoteIdleTimeout, time.Duration(val)*time.Millisecond)
 	case maxUDPPayloadSizeParameterID:
-		if val < 1200 {
-			return fmt.Errorf("invalid value for max_packet_size: %d (minimum 1200)", val)
+		if val < 524 {
+			return fmt.Errorf("invalid value for max_packet_size: %d (minimum 524)", val)
 		}
 		p.MaxUDPPayloadSize = protocol.ByteCount(val)
 	case ackDelayExponentParameterID:

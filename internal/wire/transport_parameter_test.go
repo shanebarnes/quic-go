@@ -8,8 +8,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/lucas-clemente/quic-go/internal/protocol"
-	"github.com/lucas-clemente/quic-go/internal/utils"
+	"github.com/shanebarnes/quic-go/internal/protocol"
+	"github.com/shanebarnes/quic-go/internal/utils"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -142,7 +142,7 @@ var _ = Describe("Transport Parameters", func() {
 		utils.WriteVarInt(b, uint64(maxUDPPayloadSizeParameterID))
 		utils.WriteVarInt(b, uint64(utils.VarIntLen(1199)))
 		utils.WriteVarInt(b, 1199)
-		Expect((&TransportParameters{}).Unmarshal(b.Bytes(), protocol.PerspectiveServer)).To(MatchError("TRANSPORT_PARAMETER_ERROR: invalid value for max_packet_size: 1199 (minimum 1200)"))
+		Expect((&TransportParameters{}).Unmarshal(b.Bytes(), protocol.PerspectiveServer)).To(MatchError("TRANSPORT_PARAMETER_ERROR: invalid value for max_packet_size: 547 (minimum 548)"))
 	})
 
 	It("errors when disable_active_migration has content", func() {

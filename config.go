@@ -1,6 +1,6 @@
 package quic
 
-import "github.com/lucas-clemente/quic-go/internal/protocol"
+import "github.com/shanebarnes/quic-go/internal/protocol"
 
 // Clone clones a Config
 func (c *Config) Clone() *Config {
@@ -74,6 +74,7 @@ func populateConfig(config *Config) *Config {
 		MaxIdleTimeout:                        idleTimeout,
 		AcceptToken:                           config.AcceptToken,
 		KeepAlive:                             config.KeepAlive,
+		MaxPacketSize:                         config.MaxPacketSize,
 		MaxReceiveStreamFlowControlWindow:     maxReceiveStreamFlowControlWindow,
 		MaxReceiveConnectionFlowControlWindow: maxReceiveConnectionFlowControlWindow,
 		MaxIncomingStreams:                    maxIncomingStreams,

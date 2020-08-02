@@ -14,16 +14,16 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/lucas-clemente/quic-go/internal/mocks"
+	"github.com/shanebarnes/quic-go/internal/mocks"
 
-	"github.com/lucas-clemente/quic-go/internal/handshake"
-	"github.com/lucas-clemente/quic-go/internal/protocol"
-	"github.com/lucas-clemente/quic-go/internal/qerr"
-	"github.com/lucas-clemente/quic-go/internal/testdata"
-	"github.com/lucas-clemente/quic-go/internal/utils"
-	"github.com/lucas-clemente/quic-go/internal/wire"
-	"github.com/lucas-clemente/quic-go/logging"
-	"github.com/lucas-clemente/quic-go/quictrace"
+	"github.com/shanebarnes/quic-go/internal/handshake"
+	"github.com/shanebarnes/quic-go/internal/protocol"
+	"github.com/shanebarnes/quic-go/internal/qerr"
+	"github.com/shanebarnes/quic-go/internal/testdata"
+	"github.com/shanebarnes/quic-go/internal/utils"
+	"github.com/shanebarnes/quic-go/internal/wire"
+	"github.com/shanebarnes/quic-go/logging"
+	"github.com/shanebarnes/quic-go/quictrace"
 
 	"github.com/golang/mock/gomock"
 
@@ -920,7 +920,7 @@ var _ = Describe("Server", func() {
 					return true
 				})
 				tracer.EXPECT().TracerForConnection(protocol.PerspectiveServer, gomock.Any())
-				serv.createNewSession(&net.UDPAddr{}, nil, nil, nil, nil, nil, protocol.VersionWhatever)
+				serv.createNewSession(&net.UDPAddr{}, nil, nil, nil, nil, nil, protocol.VersionWhatever, 0)
 				Consistently(done).ShouldNot(BeClosed())
 				cancel() // complete the handshake
 				Eventually(done).Should(BeClosed())
@@ -988,7 +988,7 @@ var _ = Describe("Server", func() {
 				fn()
 				return true
 			})
-			serv.createNewSession(&net.UDPAddr{}, nil, nil, nil, nil, nil, protocol.VersionWhatever)
+			serv.createNewSession(&net.UDPAddr{}, nil, nil, nil, nil, nil, protocol.VersionWhatever, 0)
 			Consistently(done).ShouldNot(BeClosed())
 			close(ready)
 			Eventually(done).Should(BeClosed())

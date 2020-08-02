@@ -6,16 +6,16 @@ import (
 	"net"
 	"time"
 
-	"github.com/lucas-clemente/quic-go/logging"
+	"github.com/shanebarnes/quic-go/logging"
 
-	"github.com/lucas-clemente/quic-go/internal/handshake"
-	"github.com/lucas-clemente/quic-go/internal/protocol"
-	"github.com/lucas-clemente/quic-go/quictrace"
+	"github.com/shanebarnes/quic-go/internal/handshake"
+	"github.com/shanebarnes/quic-go/internal/protocol"
+	"github.com/shanebarnes/quic-go/quictrace"
 )
 
 // RetireBugBackwardsCompatibilityMode controls a backwards compatibility mode, necessary due to a bug in
 // quic-go v0.17.2 (and earlier), where under certain circumstances, an endpoint would retire the connection
-// ID it is currently using. See https://github.com/lucas-clemente/quic-go/issues/2658.
+// ID it is currently using. See https://github.com/shanebarnes/quic-go/issues/2658.
 // The bug has now been fixed, and new deployments have nothing to worry about.
 // Deployments that already have quic-go <= v0.17.2 deployed should active RetireBugBackwardsCompatibilityMode.
 // If activated, quic-go will take steps to avoid the bug from triggering when connected to endpoints that are still
@@ -235,6 +235,8 @@ type Config struct {
 	// The key used to store tokens is the ServerName from the tls.Config, if set
 	// otherwise the token is associated with the server's IP address.
 	TokenStore TokenStore
+	// MaxPacketSize is the maximum UDP payload size that we use for sending IPv4/6 packets.
+	MaxPacketSize uint64
 	// MaxReceiveStreamFlowControlWindow is the maximum stream-level flow control window for receiving data.
 	// If this value is zero, it will default to 1 MB for the server and 6 MB for the client.
 	MaxReceiveStreamFlowControlWindow uint64
